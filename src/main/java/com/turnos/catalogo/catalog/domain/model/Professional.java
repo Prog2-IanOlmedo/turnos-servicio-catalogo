@@ -1,0 +1,20 @@
+package com.turnos.catalogo.catalog.domain.model;
+
+import java.time.Instant;
+
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Professional {
+    private Long id;
+    private Long categoryId;
+    private String firstName;
+    private String lastName;
+    private boolean enabled;
+    private Instant createdAt;
+    private Instant updatedAt;
+}
