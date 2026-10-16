@@ -1,5 +1,7 @@
 # turnos-servicio-catalogo
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Prog2-IanOlmedo_turnos-servicio-catalogo&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Prog2-IanOlmedo_turnos-servicio-catalogo) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Prog2-IanOlmedo_turnos-servicio-catalogo&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Prog2-IanOlmedo_turnos-servicio-catalogo)
+
 Servicio de catálogo y sincronización del proyecto integrador de Programación 2 (sistema distribuido de turnos). Caso de estudio académico con datos ficticios.
 
 > Estado: esqueleto inicial. Todavía no se integra con la cátedra ni expone endpoints de negocio.
