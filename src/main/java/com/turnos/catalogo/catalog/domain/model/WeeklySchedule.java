@@ -41,6 +41,6 @@ public class WeeklySchedule {
     }
 
     public boolean offersSlotAt(DayOfWeek day, LocalTime time) {
-        return enabled && dayOfWeek == day && slotStartTimes().contains(time);
+        return enabled && day.equals(dayOfWeek) && slotStartTimes().contains(time);
     }
 }

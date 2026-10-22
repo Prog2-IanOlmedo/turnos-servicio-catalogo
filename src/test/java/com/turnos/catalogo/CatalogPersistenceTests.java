@@ -79,4 +79,23 @@ class CatalogPersistenceTests {
                 .filteredOn(c -> c.getId().equals(2L))
                 .hasSize(1);
     }
+
+    @Test
+    void buscaLasAgendasDeUnProfesional() {
+        categoryRepository.save(ProfessionalCategory.builder()
+                .id(3L).name("Kinesiologia").enabled(true)
+                .createdAt(FECHA).updatedAt(FECHA).build());
+        professionalRepository.save(Professional.builder()
+                .id(30L).categoryId(3L).firstName("Luis").lastName("Perez")
+                .enabled(true).createdAt(FECHA).updatedAt(FECHA).build());
+        scheduleRepository.save(WeeklySchedule.builder()
+                .id(31L).professionalId(30L).dayOfWeek(DayOfWeek.TUESDAY)
+                .startTime(LocalTime.of(14, 0)).endTime(LocalTime.of(18, 0))
+                .slotDurationMinutes(20).enabled(true)
+                .createdAt(FECHA).updatedAt(FECHA).build());
+
+        assertThat(scheduleRepository.findByProfessionalId(30L))
+                .extracting(WeeklySchedule::getId)
+                .containsExactly(31L);
+    }
 }

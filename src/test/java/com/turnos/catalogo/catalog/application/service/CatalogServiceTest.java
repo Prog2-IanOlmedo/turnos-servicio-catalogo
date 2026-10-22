@@ -2,6 +2,7 @@ package com.turnos.catalogo.catalog.application.service;
 
 import com.turnos.catalogo.catalog.application.exception.ProfessionalNotFoundException;
 import com.turnos.catalogo.catalog.domain.model.Professional;
+import com.turnos.catalogo.catalog.domain.model.ProfessionalCategory;
 import com.turnos.catalogo.catalog.domain.model.WeeklySchedule;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllCategoriesUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllProfessionalsUseCase;
@@ -67,5 +68,21 @@ class CatalogServiceTest {
         when(getSchedulesByProfessionalUseCase.getSchedulesByProfessional(15L)).thenReturn(List.of(lunes));
 
         assertThat(service.getSchedulesByProfessional(15L)).containsExactly(lunes);
+    }
+
+    @Test
+    void delegaElListadoDeCategorias() {
+        ProfessionalCategory clinica = ProfessionalCategory.builder().id(1L).enabled(true).build();
+        when(getAllCategoriesUseCase.getAllCategories()).thenReturn(List.of(clinica));
+
+        assertThat(service.getAllCategories()).containsExactly(clinica);
+    }
+
+    @Test
+    void delegaElListadoDeProfesionales() {
+        Professional ana = Professional.builder().id(15L).enabled(true).build();
+        when(getAllProfessionalsUseCase.getAllProfessionals()).thenReturn(List.of(ana));
+
+        assertThat(service.getAllProfessionals()).containsExactly(ana);
     }
 }
