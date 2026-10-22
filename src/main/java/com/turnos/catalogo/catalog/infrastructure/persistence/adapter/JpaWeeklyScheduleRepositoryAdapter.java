@@ -33,4 +33,11 @@ public class JpaWeeklyScheduleRepositoryAdapter implements WeeklyScheduleReposit
                 .map(mapper::toDomainModel)
                 .toList();
     }
+
+    @Override
+    public List<WeeklySchedule> findByProfessionalId(Long professionalId) {
+        return jpaRepository.findByProfessionalId(professionalId).stream()
+                .map(mapper::toDomainModel)
+                .toList();
+    }
 }
