@@ -35,7 +35,8 @@ class WeeklyScheduleTest {
 
     @Test
     void rechazaUnaDuracionInvalida() {
-        assertThatThrownBy(() -> agenda("09:00", "10:00", 0, true).slotStartTimes())
+        WeeklySchedule invalida = agenda("09:00", "10:00", 0, true);
+        assertThatThrownBy(invalida::slotStartTimes)
                 .isInstanceOf(IllegalStateException.class);
     }
 
