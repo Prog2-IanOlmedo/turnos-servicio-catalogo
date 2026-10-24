@@ -2,6 +2,7 @@ package com.turnos.catalogo.catalog.infrastructure.web.controller;
 
 import com.turnos.catalogo.catalog.application.exception.ProfessionalNotFoundException;
 import com.turnos.catalogo.catalog.application.service.CatalogService;
+import com.turnos.catalogo.catalog.domain.model.Professional;
 import com.turnos.catalogo.catalog.domain.model.ProfessionalCategory;
 import com.turnos.catalogo.catalog.domain.model.WeeklySchedule;
 import com.turnos.catalogo.catalog.infrastructure.web.mapper.CatalogDtoMapper;
@@ -82,5 +83,36 @@ class CatalogControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.code").value("BAD_REQUEST"));
+    }
+
+    @Test
+    void listaLosProfesionales() throws Exception {
+        when(catalogService.getAllProfessionals()).thenReturn(List.of(
+                Professional.builder().id(15L).categoryId(1L).firstName("Ana").lastName("Gomez").enabled(true).build()));
+
+        mockMvc.perform(get("/api/professionals"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].lastName").value("Gomez"));
+    }
+
+    @Test
+    void devuelveUnProfesionalPorId() throws Exception {
+        when(catalogService.getProfessionalById(15L)).thenReturn(
+                Professional.builder().id(15L).categoryId(1L).firstName("Ana").lastName("Gomez").enabled(true).build());
+
+        mockMvc.perform(get("/api/professionals/15"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.categoryId").value(1));
+    }
+
+    @Test
+    void unErrorInesperadoNoMuestraDetallesInternos() throws Exception {
+        when(catalogService.getAllCategories()).thenThrow(new IllegalStateException("detalle interno"));
+
+        mockMvc.perform(get("/api/categories"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.code").value("INTERNAL_ERROR"))
+                .andExpect(jsonPath("$.detail").value("Ocurrió un error inesperado."));
     }
 }
