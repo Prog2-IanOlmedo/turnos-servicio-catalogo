@@ -16,5 +16,23 @@ services:
       timeout: 3s
       retries: 10
 
+  catalogo:
+    build: .
+    container_name: catalogo-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Dentro de la red de compose la base se llama postgres y escucha en 5432
+      CATALOGO_DB_HOST: postgres
+      CATALOGO_DB_PORT: 5432
+      CATALOGO_DB_NAME: ${CATALOGO_DB_NAME}
+      CATALOGO_DB_USER: ${CATALOGO_DB_USER}
+      CATALOGO_DB_PASSWORD: ${CATALOGO_DB_PASSWORD}
+      CATEDRA_API_URL: ${CATEDRA_API_URL:-}
+      CATEDRA_JWT: ${CATEDRA_JWT:-}
+    ports:
+      - "${CATALOGO_APP_PORT:-8081}:8080"
+
 volumes:
   catalogo-pgdata:

@@ -37,3 +37,15 @@ Servicio de catálogo y sincronización del proyecto integrador de Programación
 `./mvnw test`
 
 Requiere Docker: las pruebas levantan su propio PostgreSQL 17 con Testcontainers.
+
+## Levantar con Docker
+
+Necesita un `.env` en la raíz (copiar `.env.example` y completar los valores).
+
+```bash
+docker compose up -d --build
+```
+
+- La API queda en `http://localhost:8081` (se cambia con `CATALOGO_APP_PORT`).
+- PostgreSQL solo escucha en `127.0.0.1:5433`.
+- El `.env` no se copia a la imagen: compose pasa los valores como variables de entorno.
