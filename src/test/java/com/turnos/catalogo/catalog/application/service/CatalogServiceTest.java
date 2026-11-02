@@ -8,6 +8,7 @@ import com.turnos.catalogo.catalog.domain.ports.in.GetAllCategoriesUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllProfessionalsUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetProfessionalByIdUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetSchedulesByProfessionalUseCase;
+import com.turnos.catalogo.catalog.domain.ports.in.SynchronizeCatalogUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,6 +39,9 @@ class CatalogServiceTest {
 
     @Mock
     private GetSchedulesByProfessionalUseCase getSchedulesByProfessionalUseCase;
+
+    @Mock
+    private SynchronizeCatalogUseCase synchronizeCatalogUseCase;
 
     @InjectMocks
     private CatalogService service;
@@ -84,5 +88,13 @@ class CatalogServiceTest {
         when(getAllProfessionalsUseCase.getAllProfessionals()).thenReturn(List.of(ana));
 
         assertThat(service.getAllProfessionals()).containsExactly(ana);
+    }
+
+    @Test
+    void sincronizarDelegaEnElCasoDeUso() {
+        when(synchronizeCatalogUseCase.synchronize()).thenReturn(true);
+
+        assertThat(service.synchronizeCatalog()).isTrue();
+        verify(synchronizeCatalogUseCase).synchronize();
     }
 }

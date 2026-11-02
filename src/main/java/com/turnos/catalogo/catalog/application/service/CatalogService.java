@@ -8,6 +8,7 @@ import com.turnos.catalogo.catalog.domain.ports.in.GetAllCategoriesUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllProfessionalsUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetProfessionalByIdUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetSchedulesByProfessionalUseCase;
+import com.turnos.catalogo.catalog.domain.ports.in.SynchronizeCatalogUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class CatalogService {
     private final GetAllProfessionalsUseCase getAllProfessionalsUseCase;
     private final GetProfessionalByIdUseCase getProfessionalByIdUseCase;
     private final GetSchedulesByProfessionalUseCase getSchedulesByProfessionalUseCase;
+    private final SynchronizeCatalogUseCase synchronizeCatalogUseCase;
 
     public List<ProfessionalCategory> getAllCategories() {
         return getAllCategoriesUseCase.getAllCategories();
@@ -40,5 +42,10 @@ public class CatalogService {
     public List<WeeklySchedule> getSchedulesByProfessional(Long professionalId) {
         getProfessionalById(professionalId);
         return getSchedulesByProfessionalUseCase.getSchedulesByProfessional(professionalId);
+    }
+
+    // Pide el snapshot a la cátedra y lo aplica. false si ya estaba al día.
+    public boolean synchronizeCatalog() {
+        return synchronizeCatalogUseCase.synchronize();
     }
 }
