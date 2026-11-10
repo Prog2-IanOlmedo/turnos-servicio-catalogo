@@ -114,4 +114,14 @@ class CatchUpCatalogUseCaseImplTest {
         assertThat(useCase.catchUp()).isEqualTo(SyncResult.SNAPSHOT);
         verify(synchronizeCatalogUseCase).synchronize();
     }
+
+    @Test
+    void siRedisNoTieneUnaEntidadReconstruyeConElSnapshot() {
+        versionLocal(147L);
+        when(changeSource.findChange(148)).thenThrow(new IllegalStateException("falta el id 201"));
+
+        assertThat(useCase.catchUp()).isEqualTo(SyncResult.SNAPSHOT);
+        verify(applyCatalogChangeUseCase, never()).applyChange(any());
+        verify(synchronizeCatalogUseCase).synchronize();
+    }
 }

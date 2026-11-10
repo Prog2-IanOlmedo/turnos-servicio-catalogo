@@ -39,11 +39,11 @@ public class CatchUpCatalogUseCaseImpl implements CatchUpCatalogUseCase {
             return rebuild("la versión local " + localVersion + " no alcanza la ventana " + window);
         }
         for (long version = localVersion + 1; version <= window.currentVersion(); version++) {
-            Optional<CatalogChange> change = changeSource.findChange(version);
-            if (change.isEmpty()) {
-                return rebuild("no está disponible changes:" + version);
-            }
             try {
+                Optional<CatalogChange> change = changeSource.findChange(version);
+                if (change.isEmpty()) {
+                    return rebuild("no está disponible changes:" + version);
+                }
                 applyCatalogChangeUseCase.applyChange(change.get());
             } catch (RuntimeException e) {
                 return rebuild("no se pudo aplicar la versión " + version + ": " + e.getMessage());
