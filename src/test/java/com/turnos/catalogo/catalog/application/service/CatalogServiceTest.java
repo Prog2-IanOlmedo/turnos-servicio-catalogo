@@ -8,6 +8,8 @@ import com.turnos.catalogo.catalog.domain.ports.in.GetAllCategoriesUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllProfessionalsUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetProfessionalByIdUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetSchedulesByProfessionalUseCase;
+import com.turnos.catalogo.catalog.domain.model.SyncResult;
+import com.turnos.catalogo.catalog.domain.ports.in.CatchUpCatalogUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.SynchronizeCatalogUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +44,9 @@ class CatalogServiceTest {
 
     @Mock
     private SynchronizeCatalogUseCase synchronizeCatalogUseCase;
+
+    @Mock
+    private CatchUpCatalogUseCase catchUpCatalogUseCase;
 
     @InjectMocks
     private CatalogService service;
@@ -96,5 +101,12 @@ class CatalogServiceTest {
 
         assertThat(service.synchronizeCatalog()).isTrue();
         verify(synchronizeCatalogUseCase).synchronize();
+    }
+
+    @Test
+    void ponerseAlDiaDelegaEnElCasoDeUso() {
+        when(catchUpCatalogUseCase.catchUp()).thenReturn(SyncResult.INCREMENTAL);
+
+        assertThat(service.catchUpCatalog()).isEqualTo(SyncResult.INCREMENTAL);
     }
 }

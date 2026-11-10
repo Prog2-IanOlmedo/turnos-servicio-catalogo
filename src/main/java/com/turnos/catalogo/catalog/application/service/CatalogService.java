@@ -3,11 +3,13 @@ package com.turnos.catalogo.catalog.application.service;
 import com.turnos.catalogo.catalog.application.exception.ProfessionalNotFoundException;
 import com.turnos.catalogo.catalog.domain.model.Professional;
 import com.turnos.catalogo.catalog.domain.model.ProfessionalCategory;
+import com.turnos.catalogo.catalog.domain.model.SyncResult;
 import com.turnos.catalogo.catalog.domain.model.WeeklySchedule;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllCategoriesUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllProfessionalsUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetProfessionalByIdUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetSchedulesByProfessionalUseCase;
+import com.turnos.catalogo.catalog.domain.ports.in.CatchUpCatalogUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.SynchronizeCatalogUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class CatalogService {
     private final GetProfessionalByIdUseCase getProfessionalByIdUseCase;
     private final GetSchedulesByProfessionalUseCase getSchedulesByProfessionalUseCase;
     private final SynchronizeCatalogUseCase synchronizeCatalogUseCase;
+    private final CatchUpCatalogUseCase catchUpCatalogUseCase;
 
     public List<ProfessionalCategory> getAllCategories() {
         return getAllCategoriesUseCase.getAllCategories();
@@ -47,5 +50,10 @@ public class CatalogService {
     // Pide el snapshot a la cátedra y lo aplica. false si ya estaba al día.
     public boolean synchronizeCatalog() {
         return synchronizeCatalogUseCase.synchronize();
+    }
+
+    // Ponerse al día con la cátedra: por incrementos si se puede, si no con el snapshot.
+    public SyncResult catchUpCatalog() {
+        return catchUpCatalogUseCase.catchUp();
     }
 }
