@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-// Todo el catálogo pide el JWT del usuario, salvo el health para Docker. CSRF queda
+// El catálogo entero pide el JWT del usuario, salvo el health para Docker. CSRF queda
 // prendido: acá solo hay GET y Spring no lo chequea en métodos de lectura.
 @Configuration
 public class SecurityConfig {
