@@ -1,5 +1,7 @@
 package com.turnos.catalogo.catalog.infrastructure.web.controller;
 
+import com.turnos.catalogo.catalog.domain.model.ProfessionalFilter;
+
 import com.turnos.catalogo.catalog.application.exception.ProfessionalNotFoundException;
 import com.turnos.catalogo.catalog.application.service.CatalogService;
 import com.turnos.catalogo.catalog.domain.model.Professional;
@@ -87,7 +89,7 @@ class CatalogControllerTest {
 
     @Test
     void listaLosProfesionales() throws Exception {
-        when(catalogService.getAllProfessionals()).thenReturn(List.of(
+        when(catalogService.searchProfessionals(ProfessionalFilter.none())).thenReturn(List.of(
                 Professional.builder().id(15L).categoryId(1L).firstName("Ana").lastName("Gomez").enabled(true).build()));
 
         mockMvc.perform(get("/api/professionals"))

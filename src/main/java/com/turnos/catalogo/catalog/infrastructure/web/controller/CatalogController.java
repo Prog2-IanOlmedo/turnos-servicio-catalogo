@@ -1,6 +1,7 @@
 package com.turnos.catalogo.catalog.infrastructure.web.controller;
 
 import com.turnos.catalogo.catalog.application.service.CatalogService;
+import com.turnos.catalogo.catalog.domain.model.ProfessionalFilter;
 import com.turnos.catalogo.catalog.infrastructure.web.dto.CategoryResponse;
 import com.turnos.catalogo.catalog.infrastructure.web.dto.ProfessionalResponse;
 import com.turnos.catalogo.catalog.infrastructure.web.dto.ScheduleResponse;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,8 +32,11 @@ public class CatalogController {
     }
 
     @GetMapping("/professionals")
-    public ResponseEntity<List<ProfessionalResponse>> getAllProfessionals() {
-        return ResponseEntity.ok(catalogService.getAllProfessionals().stream()
+    // Filtros opcionales: ?categoryId=101 y/o ?name=riv. Sin parámetros, todos los habilitados.
+    public ResponseEntity<List<ProfessionalResponse>> getProfessionals(
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String name) {
+        return ResponseEntity.ok(catalogService.searchProfessionals(new ProfessionalFilter(categoryId, name)).stream()
                 .map(catalogDtoMapper::toProfessionalResponse)
                 .toList());
     }

@@ -20,7 +20,7 @@ public class ApplyCatalogSnapshotUseCaseImpl implements ApplyCatalogSnapshotUseC
     private final WeeklyScheduleRepository scheduleRepository;
     private final CatalogVersionRepository versionRepository;
 
-    // Todo en una transacción: la versión se guarda solo si las tres
+    // Va entero en una transacción: la versión se guarda solo si las tres
     // colecciones quedaron aplicadas (contrato, sección 7).
     @Override
     @Transactional

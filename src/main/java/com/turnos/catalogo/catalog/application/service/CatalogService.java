@@ -3,12 +3,14 @@ package com.turnos.catalogo.catalog.application.service;
 import com.turnos.catalogo.catalog.application.exception.ProfessionalNotFoundException;
 import com.turnos.catalogo.catalog.domain.model.Professional;
 import com.turnos.catalogo.catalog.domain.model.ProfessionalCategory;
+import com.turnos.catalogo.catalog.domain.model.ProfessionalFilter;
 import com.turnos.catalogo.catalog.domain.model.SyncResult;
 import com.turnos.catalogo.catalog.domain.model.WeeklySchedule;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllCategoriesUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetAllProfessionalsUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetProfessionalByIdUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.GetSchedulesByProfessionalUseCase;
+import com.turnos.catalogo.catalog.domain.ports.in.SearchProfessionalsUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.CatchUpCatalogUseCase;
 import com.turnos.catalogo.catalog.domain.ports.in.SynchronizeCatalogUseCase;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class CatalogService {
     private final GetSchedulesByProfessionalUseCase getSchedulesByProfessionalUseCase;
     private final SynchronizeCatalogUseCase synchronizeCatalogUseCase;
     private final CatchUpCatalogUseCase catchUpCatalogUseCase;
+    private final SearchProfessionalsUseCase searchProfessionalsUseCase;
 
     public List<ProfessionalCategory> getAllCategories() {
         return getAllCategoriesUseCase.getAllCategories();
@@ -33,6 +36,10 @@ public class CatalogService {
 
     public List<Professional> getAllProfessionals() {
         return getAllProfessionalsUseCase.getAllProfessionals();
+    }
+
+    public List<Professional> searchProfessionals(ProfessionalFilter filter) {
+        return searchProfessionalsUseCase.search(filter);
     }
 
     public Professional getProfessionalById(Long id) {
