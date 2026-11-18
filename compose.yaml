@@ -1,5 +1,5 @@
 services:
-  postgres:
+  catalogo-db:
     image: postgres:17
     container_name: catalogo-postgres
     environment:
@@ -20,11 +20,11 @@ services:
     build: .
     container_name: catalogo-app
     depends_on:
-      postgres:
+      catalogo-db:
         condition: service_healthy
     environment:
-      # Dentro de la red de compose la base se llama postgres y escucha en 5432
-      CATALOGO_DB_HOST: postgres
+      # Dentro de la red de compose la base se llama catalogo-db y escucha en 5432
+      CATALOGO_DB_HOST: catalogo-db
       CATALOGO_DB_PORT: 5432
       CATALOGO_DB_NAME: ${CATALOGO_DB_NAME}
       CATALOGO_DB_USER: ${CATALOGO_DB_USER}
