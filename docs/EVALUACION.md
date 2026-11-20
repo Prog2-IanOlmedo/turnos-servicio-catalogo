@@ -3,7 +3,7 @@
 
 > Documento **generado automáticamente** por la cátedra de Programación II (UM): RepoSense + análisis de calidad de **7 dimensiones**. **No editar a mano**: se regenera en cada evaluación.
 > Rama evaluada: `main`. Análisis **heurístico** (regex + métricas) + build: es una criba para orientar la revisión, **no una nota**. La **documentación** del repositorio no se evalúa.
-> Generado: 2026-11-18.
+> Generado: 2026-11-20.
 
 ## 1. Veredicto
 
@@ -40,7 +40,7 @@ Criterios de la cátedra (`CRITERIOS-CALIDAD.md`): **Aprobar** se juega con el p
 
 | Autor | Commits | Código (LOC) | Tests (LOC) | Docs (LOC) | Días activos | % del código |
 |---|---:|---:|---:|---:|---:|---:|
-| IanOlmedo | 45 | 1,937 | 1,825 | 123 | 16 | 100% |
+| IanOlmedo | 46 | 1,937 | 1,825 | 123 | 17 | 100% |
 
 > _El LOC de autoría lo calcula RepoSense sobre el historial y puede diferir del LOC de código del análisis (que mira el estado de `main`)._
 
@@ -149,14 +149,14 @@ El análisis encontró las siguientes señales, con el archivo y la línea donde
 
 ## 6. Evolución por commit
 
-Métricas calculadas sobre el estado de `main` en **cada commit** (16 commits con trabajo), del primero al último. La calidad usa el perfil `exigente`; el aporte de código lo mide RepoSense. El índice puede **bajar** al crecer el proyecto: se acumulan señales.
+Métricas calculadas sobre el estado de `main` en **cada commit** (17 commits con trabajo), del primero al último. La calidad usa el perfil `exigente`; el aporte de código lo mide RepoSense. El índice puede **bajar** al crecer el proyecto: se acumulan señales.
 
 ```mermaid
 xychart-beta
     title "Índice de calidad a lo largo de los commits"
-    x-axis ["b18f1b9", "f12e3e0", "a9915ad", "4118f0e", "8632526", "abaea2a", "55e21e7", "4e6b4fb", "b52ab81", "cfc4048", "83206d1", "c155741", "760777a", "660a1ee", "c98518c", "d1002c7"]
+    x-axis ["b18f1b9", "f12e3e0", "a9915ad", "4118f0e", "8632526", "abaea2a", "55e21e7", "4e6b4fb", "b52ab81", "cfc4048", "83206d1", "c155741", "760777a", "660a1ee", "c98518c", "d1002c7", "6d9886e"]
     y-axis "Índice" 0 --> 100
-    line [0, 15, 42, 42, 49, 54, 64, 65, 67, 68, 69, 69, 68, 67, 67, 67]
+    line [0, 15, 42, 42, 49, 54, 64, 65, 67, 68, 69, 69, 68, 67, 67, 67, 67]
 ```
 
 | # | Fecha | Commit | Autor | LOC | Índice | %POO | Duplic. | Sueltas |
@@ -177,6 +177,7 @@ xychart-beta
 | 14 | 2026-11-12 | `660a1ee` | IanOlmedo | 2,917 | 67 | 63% | 0.0% | 0 |
 | 15 | 2026-11-12 | `c98518c` | IanOlmedo | 3,084 | 67 | 63% | 0.0% | 0 |
 | 16 | 2026-11-17 | `d1002c7` | IanOlmedo | 3,084 | 67 | 63% | 0.0% | 0 |
+| 17 | 2026-11-18 | `6d9886e` | IanOlmedo | 3,084 | 67 | 63% | 0.0% | 0 |
 
 ---
 _Informe generado por la cátedra. Las dimensiones y umbrales corresponden a `calidad.py` (perfil `exigente`); el semáforo, a `CRITERIOS-CALIDAD.md`. La documentación del repositorio no se evalúa. Ante dudas, revisá el archivo señalado._
